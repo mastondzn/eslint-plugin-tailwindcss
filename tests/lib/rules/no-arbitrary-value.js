@@ -156,5 +156,14 @@ ruleTester.run("no-arbitrary-value", rule, {
       filename: "test.vue",
       parser: require.resolve("vue-eslint-parser"),
     },
+    ...(['myTag', 'myTag.subTag', 'myTag(SomeComponent)'].map(tag => ({
+      code: `${tag}\`w-[100px]\``,
+      errors: generateErrors("w-[100px]"),
+      options: [
+        {
+          tags: ["myTag"],
+        },
+      ],
+    }))),
   ],
 });
